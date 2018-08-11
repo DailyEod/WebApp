@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router';
 import firebase from '../firebase';
 import logo from './logo.svg';
 import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+import withRoot from '../withRoot';
 import MenuAppBar from './MenuAppBar';
 import PaperSheet from './PaperSheet';
 
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 firestore.settings(settings);
+
+const styles = theme => ({
+    root: {
+        textAlign: 'center',
+        paddingTop: theme.spacing.unit * 20,
+    },
+});
 
 class App extends Component {
     // state = {
@@ -127,4 +137,8 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+App.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withRoot(withStyles(styles)(withRouter(App)));

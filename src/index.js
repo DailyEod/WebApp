@@ -35,8 +35,8 @@ const routes = [
 
 const SidebarExample = () => (
     <Router>
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 1, padding: "10px" }} >
+      <div >
+        <div  >
           {routes.map((route, index) => (
               // Render more <Route>s with the same paths as
               // above, but different components this time.

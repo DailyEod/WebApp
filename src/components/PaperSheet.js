@@ -18,7 +18,7 @@ class PaperSheet extends React.Component {
     render() {
         const { classes } = this.props;
         let that = this;
-        
+
         return (
             <div>
               <Paper className={classes.root} elevation={1}>
