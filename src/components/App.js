@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 import { withRouter } from 'react-router';
 import firebase from '../firebase';
 import logo from './logo.svg';
@@ -17,7 +19,7 @@ firestore.settings(settings);
 
 const styles = theme => ({
     root: {
-        textAlign: 'center',
+        //textAlign: 'center',
         paddingTop: theme.spacing.unit * 20,
     },
 });
@@ -128,10 +130,11 @@ class App extends Component {
         return (
             <div className="App" >
               <MenuAppBar/>
-              <PaperSheet>
-                <ul> {list.map(d => <li key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></li> )}            </ul>
-
-              </PaperSheet>
+              <Grid container direction="column" justify="left" alignItems="center" >
+              {list.map(
+                  d => <PaperSheet key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></PaperSheet>
+             )} 
+              </Grid>
            </div>
         );
     }
