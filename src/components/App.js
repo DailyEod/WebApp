@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
 import { withRouter } from 'react-router';
 import firebase from '../firebase';
-import logo from './logo.svg';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../withRoot';
 import MenuAppBar from './MenuAppBar';
-import PaperSheet from './PaperSheet';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
@@ -19,8 +19,8 @@ firestore.settings(settings);
 
 const styles = theme => ({
     root: {
-        //textAlign: 'center',
-        paddingTop: theme.spacing.unit * 20,
+        textAlign: 'center',
+        paddingTop: theme.spacing.unit,
     },
 });
 
@@ -130,11 +130,17 @@ class App extends Component {
         return (
             <div className="App" >
               <MenuAppBar/>
-              <Grid container direction="column" justify="left" alignItems="center" >
+              <List component="nav">
               {list.map(
-                  d => <PaperSheet key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></PaperSheet>
+                  d => <ListItem key={d.id}> 
+                  { users[d.user_id] && users[d.user_id].profile &&
+                    <Avatar alt={users[d.user_id].name} src={users[d.user_id].profile.image_192}/>
+                  }
+
+                  <ListItemText><ul> {d.report.map(r => <li key={d.id + r + Math.random()}>{r}</li>)}</ul></ListItemText>
+                  </ListItem>
              )} 
-              </Grid>
+             </List>
            </div>
         );
     }
@@ -145,3 +151,4 @@ App.propTypes = {
 };
 
 export default withRoot(withStyles(styles)(withRouter(App)));
+// export default withRouter(App);
