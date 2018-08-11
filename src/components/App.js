@@ -72,6 +72,19 @@ class App extends Component {
                         });
                         that.setState({ someCollection: someCollection });
                     });
+                    that.unregisterCollectionObserver = firestore.collection(
+                        'users'
+                    ).where(
+                        'team_id', '==', snap.data().team_id
+                    ).onSnapshot((snap) => {
+                        const someCollection = {};
+                        snap.forEach((docSnapshot) => {
+                            let data = docSnapshot.data();
+                            data['id'] = docSnapshot.id;
+                            someCollection[docSnapshot.id] = data;
+                        });
+                        that.setState({ users: someCollection });
+                    });
                 });
 
             } else {
@@ -94,23 +107,25 @@ class App extends Component {
     render() {
         let that = this;
         let someCollection = that.state.someCollection || {};
+        let users = that.state.users || {};
+        console.log('users', users);
         let list = [];
         Object.keys(someCollection).forEach((k) => {
             list.push(someCollection[k]);
         });
         return (
-              <div className="App">
-                <header className="App-header">
-                  <img src={logo} className="App-logo" alt="logo" />
-                  <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                  To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-                <ul>
-                  {list.map(d => <li key={d.id}>{d.report}</li>)}
-                </ul>
-              </div>
+            <div className="App">
+              <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h1 className="App-title">Welcome to React</h1>
+              </header>
+              <p className="App-intro">
+                To get started, edit <code>src/App.js</code> and save to reload.
+              </p>
+              <ul>
+                {list.map(d => <li key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></li> )}
+            </ul>
+                </div>
         );
     }
 }
