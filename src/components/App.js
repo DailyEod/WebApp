@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import firebase from '../firebase';
 import logo from './logo.svg';
 import './App.css';
+import MenuAppBar from './MenuAppBar';
+import PaperSheet from './PaperSheet';
 
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
@@ -114,18 +116,13 @@ class App extends Component {
             list.push(someCollection[k]);
         });
         return (
-            <div className="App">
-              <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to React</h1>
-              </header>
-              <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-              </p>
-              <ul>
-                {list.map(d => <li key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></li> )}
-            </ul>
-                </div>
+            <div className="App" >
+              <MenuAppBar/>
+              <PaperSheet>
+                <ul> {list.map(d => <li key={d.id}><div><div><img src={users[d.user_id] ? users[d.user_id].profile ? users[d.user_id].profile.image_192 :' ' :''} width="72"/></div><div> @{users[d.user_id] ? users[d.user_id].name : d.user_id}</div><div><ul> {d.report.map(r => <li key={d.id + r}>{r}</li>)}</ul></div></div></li> )}            </ul>
+
+              </PaperSheet>
+           </div>
         );
     }
 }
