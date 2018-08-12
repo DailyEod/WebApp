@@ -9,9 +9,9 @@ import withRoot from '../withRoot';
 import MenuAppBar from './MenuAppBar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
+import CardApp from './CardApp';
 
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
@@ -21,8 +21,10 @@ const styles = theme => ({
     root: {
         textAlign: 'center',
         paddingTop: theme.spacing.unit,
-    },
+    }
 });
+
+
 
 class App extends Component {
     // state = {
@@ -127,20 +129,30 @@ class App extends Component {
         Object.keys(someCollection).forEach((k) => {
             list.push(someCollection[k]);
         });
+        let classes = PropTypes.object.isRequired;
+        const bull = <span className={classes.bullet}>•</span>;
+
         return (
+            
             <div className="App" >
               <MenuAppBar/>
-              <List component="nav">
+              
               {list.map(
-                  d => <ListItem key={d.id}> 
-                  { users[d.user_id] && users[d.user_id].profile &&
-                    <Avatar alt={users[d.user_id].name} src={users[d.user_id].profile.image_192}/>
-                  }
+                  d => 
+                  <CardApp>
+                        <List component="nav">
+                        <ListItem key={d.id}> 
+                        { users[d.user_id] && users[d.user_id].profile &&
+                            <Avatar alt={users[d.user_id].name} src={users[d.user_id].profile.image_192}/>
+                        }
 
-                  <ListItemText><ul> {d.report.map(r => <li key={d.id + r + Math.random()}>{r}</li>)}</ul></ListItemText>
-                  </ListItem>
+                        <ListItemText><ul> {d.report.map(r => <li key={d.id + r + Math.random()}>{r}</li>)}</ul></ListItemText>
+                        
+                        </ListItem>
+                        </List>
+                </CardApp>
              )} 
-             </List>
+             
            </div>
         );
     }
