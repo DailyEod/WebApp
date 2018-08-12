@@ -50,9 +50,9 @@ class App extends Component {
         // this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
         //     this.setState({ isSignedIn: !!user, userProfile: user });
         // });
-        const queryString = require('query-string');
+        const queryString = require('qs');
         let location = this.props.location || {};
-        let parsed = queryString.parse(location.hash);
+        let parsed = queryString.parse(location.hash.replace('#', ''));
         console.log('access_token', parsed.access_token); // replace param with your own
         let token = parsed.access_token;
 
