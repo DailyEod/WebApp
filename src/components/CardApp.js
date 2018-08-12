@@ -61,9 +61,6 @@ class CardApp extends React.Component {
                 <CardContent>
                     {that.props.children}
                 </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
             </Card>
             </div>
         );
