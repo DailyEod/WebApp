@@ -6,12 +6,12 @@ import 'firebase/database';
 import 'firebase/firestore';
 
 var config = {
-    apiKey: "AIzaSyBKxV77gLvWSU8A44mak4m5-IML_Ixg4nY",
-    authDomain: "eod-bot-local.firebaseapp.com",
-    databaseURL: "https://eod-bot-local.firebaseio.com",
-    projectId: "eod-bot-local",
-    storageBucket: "eod-bot-local.appspot.com",
-    messagingSenderId: "34337095436"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    databaseURL: process.env.REACT_APP_databaseURL,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId
 };
 
 export default firebase.initializeApp(config);
