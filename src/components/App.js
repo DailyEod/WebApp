@@ -18,6 +18,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import CardApp from './CardApp';
+import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
+import ViewDay from '@material-ui/icons/ViewDay';
 
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true };
@@ -74,6 +76,20 @@ const styles = theme => ({
         borderTop: `1px solid ${theme.palette.divider}`,
         padding: `${theme.spacing.unit * 6}px 0`,
     },
+    reportDataList: {
+        'list-style-type' : `none`,
+    },
+    icon: {
+        'font-size': '13px',
+        margin: 'auto 5px',
+        color: '#3f51b5',
+    },
+    spacingReduce: {
+        paddingTop: 0,
+        paddingBottom: 0,
+    }
+
+    
 });
 
 
@@ -208,7 +224,7 @@ class App extends Component {
                                     <span>
                                         {t.data.map(d => (
                                             <List component="nav" key={d.id}>
-                                                <ListItem key={d.id}>
+                                                <ListItem className={this.props.classes.spacingReduce} ckey={d.id}>
                                                     {users[d.user_id] && users[d.user_id].profile && (
                                                         <Avatar alt={users[d.user_id].name} src={users[d.user_id].profile.image_192} />
                                                     )}
@@ -217,7 +233,8 @@ class App extends Component {
                                                             <div>
                                                                 <span>
                                                                     {d.report.map(r => (
-                                                                        <li key={d.id + r + Math.random()} > {r} </li>
+                                                                        <li className={this.props.classes.reportDataList}
+                                                                        key={d.id + r + Math.random()} > <FiberManualRecord className={this.props.classes.icon} />{r}</li>
                                                                     ))}
                                                                 </span>
                                                             </div>
