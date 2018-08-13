@@ -57,7 +57,12 @@ class MenuAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-           <HomeIcon/>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            {/**
+                <HomeIcon/>
+            */}
             <Typography variant="title" color="inherit" className={classes.flex}>
               EodBot
             </Typography>
